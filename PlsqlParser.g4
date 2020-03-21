@@ -3,7 +3,7 @@ parser grammar PlsqlParser;
 options { tokenVocab=PlsqlLexer; }
 
 anonymous_block
-    : block_label? declare_section? body SEMICOLON (NEWLINE SLASH)?
+    : label? declare_section? body SEMICOLON (NEWLINE SLASH)?
     ;
 
 label
