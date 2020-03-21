@@ -1,22 +1,25 @@
 lexer grammar PlsqlLexer;
 
 // Keywords
-ADD :               A D D;
-BEGIN :             B E G I N;
-DECLARE :           D E C L A R E;
-END :               E N D;
-EXCEPTION :         E X C E P T I O N;
-NOT :               N O T;
-NULL :              N U L L;
+ADD :                   A D D;
+BEGIN :                 B E G I N;
+CONSTANT :              C O N S T A N T;
+DECLARE :               D E C L A R E;
+DEFAULT :               D E F A U L T;
+END :                   E N D;
+EXCEPTION :             E X C E P T I O N;
+NOT :                   N O T;
+NULL :                  N U L L;
+ROWTYPE_ATTRIBUTE :     '%' R O W T Y P E;
+TYPE_ATTRIBUTE :        '%' T Y P E;
 
-//DATATYPE: (QUOTED_IDENTIFIER | REGULAR_IDENTIFIER) (ROWTYPE_ATTRIBUTE | TYPE_ATTRIBUTE)? ;
-ROWTYPE_ATTRIBUTE: '%' R O W T Y P E;
-TYPE_ATTRIBUTE: '%' T Y P E;
-
+// Identifiers
 IDENTIFIER: QUOTED_IDENTIFIER | REGULAR_IDENTIFIER;
 
 fragment QUOTED_IDENTIFIER: '"' LETTER (LETTER | '$' | '_' | '#' | ' ' | DIGIT)*? '"';
 fragment REGULAR_IDENTIFIER: LETTER (LETTER | '$' | '_' | '#' | DIGIT)*;
+
+DECIMAL_NUMBER : DIGIT+;
 
 fragment LETTER: [a-zA-Z\u0080-\u00FF_];
 fragment DIGIT: [0-9];
@@ -24,10 +27,15 @@ fragment DIGIT: [0-9];
 // Operators
 
 // Delimiters
+// https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/plsql-language-fundamentals.html#GUID-96A42F7C-7A71-4B90-8255-CA9C8BD9722E
+ASSIGNMENT : ':=';
+COMMA : ',';
 LABEL_BEGIN : '<<';
 LABEL_END : '>>';
 SEMICOLON : ';';
 SLASH : '/';
+R_PAREN : ')';
+L_PAREN : '(';
 
 // Spaces
 fragment SPACE: [ \t];

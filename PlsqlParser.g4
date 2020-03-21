@@ -2,8 +2,8 @@ parser grammar PlsqlParser;
 
 options { tokenVocab=PlsqlLexer; }
 
-anonymous_block
-    : label? declare_section? body SEMICOLON (NEWLINE SLASH)? EOF
+plsql_block
+    : label? declare_section? body SEMICOLON
     ;
 
 label
@@ -11,16 +11,21 @@ label
     ;
 
 declare_section
-    : DECLARE item_declaration?
+    : DECLARE item_declaration+
     ;
 
 item_declaration
-    : variable_declaration
+    : (constant_declaration
+    | variable_declaration)
+    SEMICOLON
+    ;
+//TODO: expression
+constant_declaration
+    : name CONSTANT plsql_datatype not_null_constraint? (ASSIGNMENT | DEFAULT)
     ;
 
 variable_declaration
-    //TODO: make not null parser rule?
-    : name datatype (NOT NULL)? SEMICOLON
+    : name plsql_datatype not_null_constraint?
     ;
 
 body
@@ -31,9 +36,13 @@ exception_handler
     : EXCEPTION
     ;
 
-datatype
-    //TODO:%rowtype, %type e.g. reference types
-    : IDENTIFIER (ROWTYPE_ATTRIBUTE | TYPE_ATTRIBUTE)?
+not_null_constraint
+    : NOT NULL
+    ;
+
+plsql_datatype
+    // TODO: implement table.column%type
+    : IDENTIFIER (L_PAREN DECIMAL_NUMBER (COMMA DECIMAL_NUMBER)? R_PAREN)? (ROWTYPE_ATTRIBUTE | TYPE_ATTRIBUTE)?
     ;
 name
     : IDENTIFIER
