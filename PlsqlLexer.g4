@@ -6,9 +6,14 @@ BEGIN :             B E G I N;
 DECLARE :           D E C L A R E;
 END :               E N D;
 EXCEPTION :         E X C E P T I O N;
-NULL:               N U L L;
+NOT :               N O T;
+NULL :              N U L L;
 
-IDENTIFIER : QUOTED_IDENTIFIER | REGULAR_IDENTIFIER;
+//DATATYPE: (QUOTED_IDENTIFIER | REGULAR_IDENTIFIER) (ROWTYPE_ATTRIBUTE | TYPE_ATTRIBUTE)? ;
+ROWTYPE_ATTRIBUTE: '%' R O W T Y P E;
+TYPE_ATTRIBUTE: '%' T Y P E;
+
+IDENTIFIER: QUOTED_IDENTIFIER | REGULAR_IDENTIFIER;
 
 fragment QUOTED_IDENTIFIER: '"' LETTER (LETTER | '$' | '_' | '#' | ' ' | DIGIT)*? '"';
 fragment REGULAR_IDENTIFIER: LETTER (LETTER | '$' | '_' | '#' | DIGIT)*;
