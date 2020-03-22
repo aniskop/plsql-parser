@@ -3,14 +3,19 @@ lexer grammar PlsqlLexer;
 // Keywords
 ADD :                   A D D;
 BEGIN :                 B E G I N;
+CHARACTER :             C H A R A C T E R;
 CONSTANT :              C O N S T A N T;
 DECLARE :               D E C L A R E;
 DEFAULT :               D E F A U L T;
 END :                   E N D;
 EXCEPTION :             E X C E P T I O N;
+IS :                    I S;
 NOT :                   N O T;
 NULL :                  N U L L;
+RANGE :                 R A N G E;
 ROWTYPE_ATTRIBUTE :     '%' R O W T Y P E;
+SET :                   S E T;
+SUBTYPE :               S U B T Y P E;
 TYPE_ATTRIBUTE :        '%' T Y P E;
 
 // Identifiers
@@ -29,6 +34,7 @@ fragment DIGIT: [0-9];
 // Delimiters
 // https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/plsql-language-fundamentals.html#GUID-96A42F7C-7A71-4B90-8255-CA9C8BD9722E
 ASSIGNMENT : ':=';
+RANGE_OP : '..';
 COMMA : ',';
 LABEL_BEGIN : '<<';
 LABEL_END : '>>';

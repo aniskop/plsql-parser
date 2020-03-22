@@ -11,7 +11,29 @@ label
     ;
 
 declare_section
-    : DECLARE item_declaration+
+    : DECLARE
+    (item_declaration | type_definition)+
+    ;
+
+type_definition
+    : subtype_definition
+    ;
+
+subtype_definition
+    : SUBTYPE name IS plsql_datatype (subtype_constraint | character_set)? not_null_constraint?
+    ;
+
+subtype_constraint
+    : (DECIMAL_NUMBER (COMMA DECIMAL_NUMBER)?) | (RANGE DECIMAL_NUMBER RANGE_OP DECIMAL_NUMBER)
+    ;
+
+character_set
+    : CHARACTER SET character_set_name
+    ;
+
+character_set_name
+    //TODO: separate regexp. charset has no spaces and has dots allowed
+    : IDENTIFIER
     ;
 
 item_declaration
