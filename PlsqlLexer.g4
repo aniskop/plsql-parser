@@ -2,6 +2,7 @@ lexer grammar PlsqlLexer;
 
 // Keywords
 ADD :                   A D D;
+ARRAY :                 A R R A Y;
 BEGIN :                 B E G I N;
 BY :                    B Y;
 CHARACTER :             C H A R A C T E R;
@@ -22,6 +23,8 @@ SUBTYPE :               S U B T Y P E;
 TABLE :                 T A B L E;
 TYPE_ATTRIBUTE :        '%' T Y P E;
 TYPE :                  T Y P E;
+VARRAY :                V A R R A Y;
+VARYING :               V A R Y I N G;
 
 // Identifiers
 IDENTIFIER: QUOTED_IDENTIFIER | REGULAR_IDENTIFIER;

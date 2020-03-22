@@ -20,10 +20,12 @@ declare_section
 //TODO: function definition
 //TODO: procedure definition
     : DECLARE
-    (item_declaration | type_definition)+
+    (
+        (item_declaration | type_definition)
+        SEMICOLON
+    )+
     ;
 
-//TODO: collection type def
 //TODO: record type def
 //TODO: ref cursor type def
 type_definition
@@ -31,16 +33,22 @@ type_definition
     | collection_type_definition
     ;
 
-//TODO: varray
-//TODO: nested
 collection_type_definition
-    : TYPE type_name IS (assoc_array_type_definition)+
+    : TYPE type_name IS (assoc_array_type_definition | varray_type_definition | nested_table_type_definition)+
     ;
 
 assoc_array_type_definition
     // Do not restrict INDEX BY to valid datatypes
     // to make parser simpler and prevent crashing on invalid datatypes.
     : TABLE OF plsql_datatype not_null_constraint? INDEX BY plsql_datatype
+    ;
+
+varray_type_definition
+    : (VARRAY | (VARYING? ARRAY)) L_PAREN DECIMAL_NUMBER R_PAREN OF plsql_datatype not_null_constraint?
+    ;
+
+nested_table_type_definition
+    : TABLE OF plsql_datatype not_null_constraint?
     ;
 
 type_name
