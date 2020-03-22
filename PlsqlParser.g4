@@ -3,7 +3,7 @@ parser grammar PlsqlParser;
 options { tokenVocab=PlsqlLexer; }
 
 plsql_block
-    : label? declare_section? body SEMICOLON
+    : label? DECLARE declare_section? body SEMICOLON
     ;
 
 label
@@ -37,7 +37,8 @@ character_set_name
     ;
 
 item_declaration
-    : (constant_declaration
+    : (exception_declaration
+    | constant_declaration
     | variable_declaration)
     SEMICOLON
     ;
@@ -50,13 +51,14 @@ variable_declaration
     : name plsql_datatype not_null_constraint?
     ;
 
-body
-    : BEGIN .*? exception_handler? END
+exception_declaration
+    : name EXCEPTION
     ;
 
-exception_handler
-    : EXCEPTION
+body
+    : BEGIN .*? (EXCEPTION)? END
     ;
+
 
 not_null_constraint
     : NOT NULL
