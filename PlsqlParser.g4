@@ -17,6 +17,11 @@ declare_section
 
 type_definition
     : subtype_definition
+    | collection_type_definition
+    ;
+
+collection_type_definition
+    : 
     ;
 
 subtype_definition

@@ -16,3 +16,4 @@ Oracle docs used:
 * Definitions:
     * [Type definition](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/block.html#GUID-9ACEB9ED-567E-4E1A-A16A-B8B35214FC9D__CJACIHEC):
         * [Subtype](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/block.html#GUID-9ACEB9ED-567E-4E1A-A16A-B8B35214FC9D__CHDCIGAD)
+        * [Collection type](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/collection-variable.html#GUID-89A1863C-65A1-40CF-9392-86E9FDC21BE9__CJABBGEE)
