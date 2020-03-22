@@ -11,17 +11,40 @@ label
     ;
 
 declare_section
+//TODO: type definition
+//TODO: cursor declaration
+//TODO: item_declaration (collection var, record variable (type.column)
+//TODO: function declaration
+//TODO: procedure declaration
+//TODO: cursor definition
+//TODO: function definition
+//TODO: procedure definition
     : DECLARE
     (item_declaration | type_definition)+
     ;
 
+//TODO: collection type def
+//TODO: record type def
+//TODO: ref cursor type def
 type_definition
     : subtype_definition
     | collection_type_definition
     ;
 
+//TODO: varray
+//TODO: nested
 collection_type_definition
-    : 
+    : TYPE type_name IS (assoc_array_type_definition)+
+    ;
+
+assoc_array_type_definition
+    // Do not restrict INDEX BY to valid datatypes
+    // to make parser simpler and prevent crashing on invalid datatypes.
+    : TABLE OF plsql_datatype not_null_constraint? INDEX BY plsql_datatype
+    ;
+
+type_name
+    : IDENTIFIER
     ;
 
 subtype_definition

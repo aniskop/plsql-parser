@@ -3,20 +3,25 @@ lexer grammar PlsqlLexer;
 // Keywords
 ADD :                   A D D;
 BEGIN :                 B E G I N;
+BY :                    B Y;
 CHARACTER :             C H A R A C T E R;
 CONSTANT :              C O N S T A N T;
 DECLARE :               D E C L A R E;
 DEFAULT :               D E F A U L T;
 END :                   E N D;
 EXCEPTION :             E X C E P T I O N;
+INDEX :                 I N D E X;
 IS :                    I S;
 NOT :                   N O T;
 NULL :                  N U L L;
+OF :                    O F;
 RANGE :                 R A N G E;
 ROWTYPE_ATTRIBUTE :     '%' R O W T Y P E;
 SET :                   S E T;
 SUBTYPE :               S U B T Y P E;
+TABLE :                 T A B L E;
 TYPE_ATTRIBUTE :        '%' T Y P E;
+TYPE :                  T Y P E;
 
 // Identifiers
 IDENTIFIER: QUOTED_IDENTIFIER | REGULAR_IDENTIFIER;
