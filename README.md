@@ -20,3 +20,5 @@ Oracle docs used:
             * Associative array
             * Varray
             * Nested table
+        * [Record type](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/record-variable-declaration.html#GUID-704FC014-561E-422C-9636-EDCA3B996AAD__CJAJCHJA)
+        * [Ref cursor type](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/cursor-variable-declaration.html#GUID-CE884B31-07F0-46AA-8067-EBAF73821F3D__CJAIGBFF)
