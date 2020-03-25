@@ -20,7 +20,10 @@ declare_section
 //TODO: function definition
 //TODO: procedure definition
     : DECLARE
-    (item_declaration | type_definition)
+    | exception_declaration
+    | constant_declaration
+    | variable_declaration
+    | type_definition
     ;
 
 //TODO: record type def
@@ -73,13 +76,9 @@ character_set_name
     ;
 // End: subtype
 
-item_declaration
-    : (exception_declaration
-    | constant_declaration
-    | variable_declaration)
-    SEMICOLON
-    ;
 //TODO: expression
+
+// Begin: item declaration
 constant_declaration
     : name CONSTANT plsql_datatype not_null_constraint? (ASSIGNMENT | DEFAULT) SEMICOLON
     ;
@@ -91,6 +90,7 @@ variable_declaration
 exception_declaration
     : name EXCEPTION SEMICOLON
     ;
+// End: item declaration
 
 body
     : BEGIN .*? (EXCEPTION)? END
