@@ -20,10 +20,7 @@ declare_section
 //TODO: function definition
 //TODO: procedure definition
     : DECLARE
-    (
-        (item_declaration | type_definition)
-        SEMICOLON
-    )+
+    (item_declaration | type_definition)
     ;
 
 //TODO: record type def
@@ -33,8 +30,9 @@ type_definition
     | collection_type_definition
     ;
 
+// Begin: collection types
 collection_type_definition
-    : TYPE type_name IS (assoc_array_type_definition | varray_type_definition | nested_table_type_definition)+
+    : TYPE type_name IS (assoc_array_type_definition | varray_type_definition | nested_table_type_definition)+ SEMICOLON
     ;
 
 assoc_array_type_definition
@@ -54,9 +52,11 @@ nested_table_type_definition
 type_name
     : IDENTIFIER
     ;
+// End: collection types
 
+// Begin: subtype
 subtype_definition
-    : SUBTYPE name IS plsql_datatype (subtype_constraint | character_set)? not_null_constraint?
+    : SUBTYPE name IS plsql_datatype (subtype_constraint | character_set)? not_null_constraint? SEMICOLON
     ;
 
 subtype_constraint
@@ -71,6 +71,7 @@ character_set_name
     //TODO: separate regexp. charset has no spaces and has dots allowed
     : IDENTIFIER
     ;
+// End: subtype
 
 item_declaration
     : (exception_declaration
@@ -80,15 +81,15 @@ item_declaration
     ;
 //TODO: expression
 constant_declaration
-    : name CONSTANT plsql_datatype not_null_constraint? (ASSIGNMENT | DEFAULT)
+    : name CONSTANT plsql_datatype not_null_constraint? (ASSIGNMENT | DEFAULT) SEMICOLON
     ;
 
 variable_declaration
-    : name plsql_datatype not_null_constraint?
+    : name plsql_datatype not_null_constraint? SEMICOLON
     ;
 
 exception_declaration
-    : name EXCEPTION
+    : name EXCEPTION SEMICOLON
     ;
 
 body
