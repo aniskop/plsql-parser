@@ -11,7 +11,6 @@ label
     ;
 
 declare_section
-//TODO: type definition
 //TODO: cursor declaration
 //TODO: item_declaration (collection var, record variable (type.column)
 //TODO: function declaration
@@ -21,20 +20,42 @@ declare_section
 //TODO: procedure definition
     : DECLARE
     (
-        (item_declaration | type_definition)
-        SEMICOLON
-    )+
+        subtype_definition
+        | type_definition
+        | exception_declaration
+        | constant_declaration
+        | variable_declaration
+    )*
     ;
 
-//TODO: record type def
-//TODO: ref cursor type def
+// Make subtype definition separate although in Oracle docs it falls under type_definition.
+// This way parse tree and reading type name is more consistent:
+// subtype_definition.name instead of type_definition.subtype_definition.name.
 type_definition
-    : subtype_definition
-    | collection_type_definition
+    : TYPE name IS
+    (
+        collection_type_definition
+        | ref_cursor_type_definition
+        | record_type_definition
+    ) SEMICOLON
     ;
 
+ref_cursor_type_definition
+    : REF CURSOR return_clause?
+    ;
+
+record_type_definition
+    : RECORD L_PAREN field_definition (COMMA field_definition)* R_PAREN
+    ;
+
+//TODO: implement default value
+field_definition
+    : name plsql_datatype not_null_constraint? (DEFAULT | ASSIGNMENT)?
+    ;
+
+// Begin: collection types
 collection_type_definition
-    : TYPE type_name IS (assoc_array_type_definition | varray_type_definition | nested_table_type_definition)+
+    : (assoc_array_type_definition | varray_type_definition | nested_table_type_definition)
     ;
 
 assoc_array_type_definition
@@ -51,12 +72,11 @@ nested_table_type_definition
     : TABLE OF plsql_datatype not_null_constraint?
     ;
 
-type_name
-    : IDENTIFIER
-    ;
+// End: collection types
 
+// Begin: subtype
 subtype_definition
-    : SUBTYPE name IS plsql_datatype (subtype_constraint | character_set)? not_null_constraint?
+    : SUBTYPE name IS plsql_datatype (subtype_constraint | character_set)? not_null_constraint? SEMICOLON
     ;
 
 subtype_constraint
@@ -71,30 +91,32 @@ character_set_name
     //TODO: separate regexp. charset has no spaces and has dots allowed
     : IDENTIFIER
     ;
+// End: subtype
 
-item_declaration
-    : (exception_declaration
-    | constant_declaration
-    | variable_declaration)
-    SEMICOLON
-    ;
 //TODO: expression
+
+// Begin: item declaration
 constant_declaration
-    : name CONSTANT plsql_datatype not_null_constraint? (ASSIGNMENT | DEFAULT)
+    : name CONSTANT plsql_datatype not_null_constraint? (ASSIGNMENT | DEFAULT) SEMICOLON
     ;
 
 variable_declaration
-    : name plsql_datatype not_null_constraint?
+    : name plsql_datatype not_null_constraint? SEMICOLON
     ;
 
 exception_declaration
-    : name EXCEPTION
+    : name EXCEPTION SEMICOLON
     ;
+// End: item declaration
 
 body
     : BEGIN .*? (EXCEPTION)? END
     ;
 
+// Begin: common things
+return_clause
+    : RETURN plsql_datatype
+    ;
 
 not_null_constraint
     : NOT NULL
@@ -107,3 +129,4 @@ plsql_datatype
 name
     : IDENTIFIER
     ;
+// End: common things
