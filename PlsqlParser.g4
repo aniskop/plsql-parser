@@ -20,22 +20,34 @@ declare_section
 //TODO: function definition
 //TODO: procedure definition
     : DECLARE
-    | exception_declaration
-    | constant_declaration
-    | variable_declaration
-    | type_definition
+    (
+        subtype_definition
+        | type_definition
+        | exception_declaration
+        | constant_declaration
+        | variable_declaration
+    )*
     ;
 
 //TODO: record type def
-//TODO: ref cursor type def
+// Make subtype definition separate although in Oracle docs it falls under type_definition.
+// This way parse tree and reading type name is more consistent:
+// subtype_definition.name instead of type_definition.subtype_definition.name.
 type_definition
-    : subtype_definition
-    | collection_type_definition
+    : TYPE name IS
+    (
+        collection_type_definition
+        | ref_cursor_type_definition
+    ) SEMICOLON
+    ;
+
+ref_cursor_type_definition
+    : REF CURSOR return_clause?
     ;
 
 // Begin: collection types
 collection_type_definition
-    : TYPE type_name IS (assoc_array_type_definition | varray_type_definition | nested_table_type_definition)+ SEMICOLON
+    : (assoc_array_type_definition | varray_type_definition | nested_table_type_definition)
     ;
 
 assoc_array_type_definition
@@ -52,9 +64,6 @@ nested_table_type_definition
     : TABLE OF plsql_datatype not_null_constraint?
     ;
 
-type_name
-    : IDENTIFIER
-    ;
 // End: collection types
 
 // Begin: subtype
@@ -96,6 +105,10 @@ body
     : BEGIN .*? (EXCEPTION)? END
     ;
 
+// Begin: common things
+return_clause
+    : RETURN plsql_datatype
+    ;
 
 not_null_constraint
     : NOT NULL
@@ -108,3 +121,4 @@ plsql_datatype
 name
     : IDENTIFIER
     ;
+// End: common things
