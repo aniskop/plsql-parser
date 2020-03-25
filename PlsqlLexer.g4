@@ -1,5 +1,7 @@
 lexer grammar PlsqlLexer;
 
+// NOTE: Longer tokens place first
+
 // Keywords
 ADD :                   A D D;
 ARRAY :                 A R R A Y;
@@ -17,6 +19,7 @@ IS :                    I S;
 NOT :                   N O T;
 NULL :                  N U L L;
 OF :                    O F;
+RECORD :                R E C O R D;
 REF :                   R E F;
 RANGE :                 R A N G E;
 ROWTYPE_ATTRIBUTE :     '%' R O W T Y P E;

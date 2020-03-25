@@ -38,11 +38,21 @@ type_definition
     (
         collection_type_definition
         | ref_cursor_type_definition
+        | record_type_definition
     ) SEMICOLON
     ;
 
 ref_cursor_type_definition
     : REF CURSOR return_clause?
+    ;
+
+record_type_definition
+    : RECORD L_PAREN field_definition (COMMA field_definition)* R_PAREN
+    ;
+
+//TODO: implement default value
+field_definition
+    : name plsql_datatype not_null_constraint? (DEFAULT | ASSIGNMENT)?
     ;
 
 // Begin: collection types
