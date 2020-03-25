@@ -11,7 +11,6 @@ label
     ;
 
 declare_section
-//TODO: type definition
 //TODO: cursor declaration
 //TODO: item_declaration (collection var, record variable (type.column)
 //TODO: function declaration
@@ -29,7 +28,6 @@ declare_section
     )*
     ;
 
-//TODO: record type def
 // Make subtype definition separate although in Oracle docs it falls under type_definition.
 // This way parse tree and reading type name is more consistent:
 // subtype_definition.name instead of type_definition.subtype_definition.name.
