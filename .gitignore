@@ -25,6 +25,7 @@ hs_err_pid*
 # IntelliJ files
 *.iml
 .idea/
+target/
 
 # ANTLR output files
 gen/

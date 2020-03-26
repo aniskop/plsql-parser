@@ -2,8 +2,12 @@ parser grammar PlsqlParser;
 
 options { tokenVocab=PlsqlLexer; }
 
+script
+    : plsql_block
+    ;
+
 plsql_block
-    : label? DECLARE declare_section? body SEMICOLON
+    : label? declare_section? body SEMICOLON
     ;
 
 label
