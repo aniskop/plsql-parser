@@ -3,7 +3,7 @@ parser grammar PlsqlParser;
 options { tokenVocab=PlsqlLexer; }
 
 script
-    : plsql_block
+    : plsql_block*
     ;
 
 plsql_block
