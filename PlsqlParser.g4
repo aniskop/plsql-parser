@@ -101,11 +101,12 @@ character_set_name
 
 // Begin: item declaration
 constant_declaration
-    : name CONSTANT plsql_datatype not_null_constraint? (ASSIGNMENT | DEFAULT) SEMICOLON
+    : name CONSTANT plsql_datatype not_null_constraint? default_value SEMICOLON
     ;
 
 variable_declaration
-    : name plsql_datatype not_null_constraint? SEMICOLON
+    // Allow declare not null without default value to keep rule simpler
+    : name plsql_datatype not_null_constraint? default_value? SEMICOLON
     ;
 
 exception_declaration
@@ -126,6 +127,15 @@ not_null_constraint
     : NOT NULL
     ;
 
+default_value
+    : (ASSIGNMENT | DEFAULT) plsql_expression
+    ;
+
+plsql_expression
+    : null_expression
+    | number
+    ;
+
 plsql_datatype
     // TODO: implement table.column%type
     : IDENTIFIER (L_PAREN DECIMAL_NUMBER (COMMA DECIMAL_NUMBER)? R_PAREN)? (ROWTYPE_ATTRIBUTE | TYPE_ATTRIBUTE)?
@@ -133,4 +143,14 @@ plsql_datatype
 name
     : IDENTIFIER
     ;
+
+null_expression
+    : NULL
+    ;
+// Numeric literal
+number
+    : (MINUS DECIMAL_NUMBER)
+    | DECIMAL_NUMBER
+    ;
+
 // End: common things
