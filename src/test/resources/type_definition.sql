@@ -13,7 +13,8 @@ declare
         field1 number,
         field2 varchar2(20),
         field3 r_medium%rowtype,
-        field4 r_medium%type not null
+        field4 r_medium%type not null,
+        field5 number default 10
     );
 begin
 end;

@@ -29,6 +29,9 @@ declare_section
         | exception_declaration
         | constant_declaration
         | variable_declaration
+        // To not force that function declaration goes after variable declartion
+        // to keep things simpler
+        | function_declaration
     )*
     ;
 
@@ -54,7 +57,7 @@ record_type_definition
 
 //TODO: implement default value
 field_definition
-    : name plsql_datatype not_null_constraint? (DEFAULT | ASSIGNMENT)?
+    : name plsql_datatype not_null_constraint? default_value?
     ;
 
 // Begin: collection types
@@ -114,13 +117,51 @@ exception_declaration
     ;
 // End: item declaration
 
+function_declaration
+    // Hints and clauses can go in any order. That's why using combination of alternative (|) and *
+    : function_heading (deterministic_hint | pipelined_clause | parallel_clause | result_cache_clause )* SEMICOLON
+    ;
+
+function_heading
+    : FUNCTION name ( L_PAREN parameter_declaration (COMMA parameter_declaration)* R_PAREN )? return_clause
+    ;
+
+parameter_declaration
+    // Allow default value for out/inout params to keep rule and parse tree simpler
+    : name parameter_mode? nocopy_hint? plsql_datatype default_value?
+    ;
+
+parameter_mode
+    : OUT | IN OUT | IN
+    ;
+
 body
     : BEGIN .*? (EXCEPTION)? END
     ;
 
 // Begin: common things
+deterministic_hint
+    : DETERMINISTIC
+    ;
+
+pipelined_clause
+    : PIPELINED
+    ;
+
+parallel_clause
+    : PARALLEL_ENABLE
+    ;
+
+result_cache_clause
+    : RESULT_CACHE
+    ;
+
 return_clause
     : RETURN plsql_datatype
+    ;
+
+nocopy_hint
+    : NOCOPY
     ;
 
 not_null_constraint
