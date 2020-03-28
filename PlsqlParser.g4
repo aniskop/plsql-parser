@@ -105,6 +105,7 @@ constant_declaration
     ;
 
 variable_declaration
+    // Allow declare not null without default value to keep rule simpler
     : name plsql_datatype not_null_constraint? default_value? SEMICOLON
     ;
 
