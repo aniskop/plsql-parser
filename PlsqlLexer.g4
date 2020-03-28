@@ -1,6 +1,7 @@
 lexer grammar PlsqlLexer;
 
-// NOTE: Longer tokens place first
+// NOTE: Usual rule - if one toke is a substring of another, longer token place first.
+// For example, CHAR is substring of CHARACTER, so CHARACTER token must be first, then CHAR.
 
 // Keywords
 ADD :                   A D D;
@@ -21,6 +22,7 @@ NULL :                  N U L L;
 OF :                    O F;
 RECORD :                R E C O R D;
 REF :                   R E F;
+RETURN :                R E T U R N;
 RANGE :                 R A N G E;
 ROWTYPE_ATTRIBUTE :     '%' R O W T Y P E;
 SET :                   S E T;
@@ -37,6 +39,7 @@ IDENTIFIER: QUOTED_IDENTIFIER | REGULAR_IDENTIFIER;
 fragment QUOTED_IDENTIFIER: '"' LETTER (LETTER | '$' | '_' | '#' | ' ' | DIGIT)*? '"';
 fragment REGULAR_IDENTIFIER: LETTER (LETTER | '$' | '_' | '#' | DIGIT)*;
 
+// Numeric literal
 DECIMAL_NUMBER : DIGIT+;
 
 fragment LETTER: [a-zA-Z\u0080-\u00FF_];
@@ -55,6 +58,7 @@ SEMICOLON : ';';
 SLASH : '/';
 R_PAREN : ')';
 L_PAREN : '(';
+MINUS : '-';
 
 // Spaces
 fragment SPACE: [ \t];
