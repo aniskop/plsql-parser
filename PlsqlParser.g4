@@ -17,8 +17,6 @@ label
 declare_section
 //TODO: cursor declaration
 //TODO: item_declaration (collection var, record variable (type.column)
-//TODO: function declaration
-//TODO: procedure declaration
 //TODO: cursor definition
 //TODO: function definition
 //TODO: procedure definition
@@ -32,6 +30,7 @@ declare_section
         // To not force that function declaration goes after variable declartion
         // to keep things simpler
         | function_declaration
+        | procedure_declaration
     )*
     ;
 
@@ -135,6 +134,46 @@ parameter_mode
     : OUT | IN OUT | IN
     ;
 
+procedure_declaration
+    : procedure_heading procedure_properties? SEMICOLON
+    ;
+
+procedure_heading
+    : PROCEDURE name ( L_PAREN parameter_declaration (COMMA parameter_declaration)* R_PAREN )?
+    ;
+
+procedure_properties
+    : ( accessible_by_clause | default_collation_clause | invoker_rights_clause) +
+    ;
+
+accessible_by_clause
+    : ACCESSIBLE BY L_PAREN accessor (COMMA accessor)* R_PAREN
+    ;
+
+accessor
+    : unit_kind? (schema DOT)? unit_name
+    ;
+
+unit_kind
+    : (FUNCTION | PROCEDURE | PACKAGE | TRIGGER | TYPE)
+    ;
+
+unit_name
+    : IDENTIFIER
+    ;
+
+default_collation_clause
+    : DEFAULT COLLATION collation_option
+    ;
+
+collation_option
+    : USING_NLS_COMP
+    ;
+
+invoker_rights_clause
+    : AUTHID (CURRENT_USER | DEFINER)
+    ;
+
 body
     : BEGIN .*? (EXCEPTION)? END
     ;
@@ -181,6 +220,11 @@ plsql_datatype
     // TODO: implement table.column%type
     : IDENTIFIER (L_PAREN DECIMAL_NUMBER (COMMA DECIMAL_NUMBER)? R_PAREN)? (ROWTYPE_ATTRIBUTE | TYPE_ATTRIBUTE)?
     ;
+
+schema
+    : IDENTIFIER
+    ;
+
 name
     : IDENTIFIER
     ;
