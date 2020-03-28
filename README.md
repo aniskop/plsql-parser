@@ -16,6 +16,7 @@ To test the grammar execute `mvn test` or `mvn clean test`.
     * [Record variable](https://docs.oracle.com/en/database/oracle/racle-database/20/lnpls/record-variable-declaration.tml#GUID-704FC014-561E-422C-9636-EDCA3B996AAD)
     * [Collection variable](https://docs.oracle.com/en/database/oracle/racle-database/20/lnpls/collection-variable.tml#GUID-89A1863C-65A1-40CF-9392-86E9FDC21BE9)
     * [Function](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/function-declaration-and-definition.html#GUID-4E19FB09-46B5-4CE5-8A5B-CD815C29DA1C__CJADJIFC)
+    * [Procedure](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/procedure-declaration-and-definition.html#GUID-9A48D7CE-3720-46A4-B5CA-C2250CA86AF2__CJACCJID)
 * Definitions
     * [Type definition](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/block.html#GUID-9ACEB9ED-567E-4E1A-A16A-B8B35214FC9D__CJACIHEC)
         * [Subtype](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/block.html#GUID-9ACEB9ED-567E-4E1A-A16A-B8B35214FC9D__CHDCIGAD)
