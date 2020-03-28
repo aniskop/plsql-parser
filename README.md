@@ -3,6 +3,8 @@ The goal of the project &ndash; create Oracle PL/SQL parser, which operates the 
 Oracle docs used:
 * [Database PL/SQL Language Reference](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/index.html)
 
+To test the grammar execute `mvn test` or `mvn clean test`.
+
 # Supported syntax elements
 
 * [PL/SQL block](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/overview.html#GUID-826B070B-4888-4398-889B-61A3C6B91349)
