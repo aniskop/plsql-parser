@@ -16,7 +16,6 @@ label
 
 declare_section
 //TODO: cursor declaration
-//TODO: item_declaration (collection var, record variable (type.column)
 //TODO: cursor definition
 //TODO: function definition
 //TODO: procedure definition
@@ -27,8 +26,8 @@ declare_section
         | exception_declaration
         | constant_declaration
         | variable_declaration
-        // To not force that function declaration goes after variable declartion
-        // to keep things simpler
+        // Do not force that function declaration goes after variable declartion
+        // to keep things simpler.
         | function_declaration
         | procedure_declaration
     )*
@@ -54,7 +53,6 @@ record_type_definition
     : RECORD L_PAREN field_definition (COMMA field_definition)* R_PAREN
     ;
 
-//TODO: implement default value
 field_definition
     : name plsql_datatype not_null_constraint? default_value?
     ;
@@ -213,12 +211,20 @@ default_value
 
 plsql_expression
     : null_expression
-    | number
+    | numeric_literal
     ;
 
 plsql_datatype
-    // TODO: implement table.column%type
-    : IDENTIFIER (L_PAREN DECIMAL_NUMBER (COMMA DECIMAL_NUMBER)? R_PAREN)? (ROWTYPE_ATTRIBUTE | TYPE_ATTRIBUTE)?
+    // For now scale, precision, %type, %rowtype are not parser rules because
+    // there is no use case when such parser rules needed.
+    : IDENTIFIER
+    (
+        // Examples: number(11), number(11,2), varchar2(4000)
+        (L_PAREN DECIMAL_NUMBER (COMMA DECIMAL_NUMBER)? R_PAREN)?
+        // Examples: package.type, c_cursor%rowtype, table.column.type%type, schema.table.column%type
+        | (DOT IDENTIFIER)* (ROWTYPE_ATTRIBUTE | TYPE_ATTRIBUTE)?
+    )
+
     ;
 
 schema
@@ -232,8 +238,8 @@ name
 null_expression
     : NULL
     ;
-// Numeric literal
-number
+
+numeric_literal
     : (MINUS DECIMAL_NUMBER)
     | DECIMAL_NUMBER
     ;
