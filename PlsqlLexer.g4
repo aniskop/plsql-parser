@@ -1,7 +1,7 @@
 lexer grammar PlsqlLexer;
 
-// NOTE: Usual rule - if one toke is a substring of another, longer token place first.
-// For example, CHAR is substring of CHARACTER, so CHARACTER token must be first, then CHAR.
+// NOTE: Usual rule - if two (or more) tokens has the same beginning, place longer tokens first.
+// For example, CHAR and CHARACTER begins with CHAR, so CHARACTER token must be first, then CHAR.
 
 // Keywords
 ADD :                   A D D;
@@ -21,6 +21,7 @@ DEFINER :               D E F I N E R;
 DETERMINISTIC :         D E T E R M I N I S T I C;
 END :                   E N D;
 EXCEPTION :             E X C E P T I O N;
+FALSE :                 F A L S E;
 FUNCTION :              F U N C T I O N;
 INDEX :                 I N D E X;
 IN :                    I N;
@@ -44,6 +45,7 @@ SET :                   S E T;
 SUBTYPE :               S U B T Y P E;
 TABLE :                 T A B L E;
 TRIGGER :               T R I G G E R;
+TRUE :                  T R U E;
 TYPE_ATTRIBUTE :        '%' T Y P E;
 TYPE :                  T Y P E;
 USING_NLS_COMP :        U S I N G '_' N L S '_' C O M P;

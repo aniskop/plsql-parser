@@ -19,5 +19,7 @@ declare
     my_var my_table.my_column%type;
     my_var my_schema.my_table.my_column%type;
     my_var my_package.my_type;
+    "boolean var" boolean := true;
+    another_const constant boolean default false;
 begin
 end;

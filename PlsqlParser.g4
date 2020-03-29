@@ -97,8 +97,6 @@ character_set_name
     ;
 // End: subtype
 
-//TODO: expression
-
 // Begin: item declaration
 constant_declaration
     : name CONSTANT plsql_datatype not_null_constraint? default_value SEMICOLON
@@ -212,6 +210,7 @@ default_value
 plsql_expression
     : null_value
     | character_literal
+    | boolean_literal
     | numeric_literal
     ;
 
@@ -225,7 +224,6 @@ plsql_datatype
         // Examples: package.type, c_cursor%rowtype, table.column.type%type, schema.table.column%type
         | (DOT IDENTIFIER)* (ROWTYPE_ATTRIBUTE | TYPE_ATTRIBUTE)?
     )
-
     ;
 
 schema
@@ -242,6 +240,10 @@ null_value
 
 character_literal
     : CHAR_LITERAL
+    ;
+
+boolean_literal
+    : TRUE | FALSE
     ;
 
 numeric_literal
