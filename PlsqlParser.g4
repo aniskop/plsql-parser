@@ -3,7 +3,7 @@ parser grammar PlsqlParser;
 options { tokenVocab=PlsqlLexer; }
 
 script
-    : plsql_block*
+    : (comment | plsql_block)*
     ;
 
 plsql_block
@@ -21,7 +21,8 @@ declare_section
 //TODO: procedure definition
     : DECLARE
     (
-        subtype_definition
+        comment
+        | subtype_definition
         | type_definition
         | exception_declaration
         | constant_declaration
@@ -171,7 +172,14 @@ invoker_rights_clause
     ;
 
 body
-    : BEGIN .*? (EXCEPTION)? END
+    : BEGIN ( comment | plsql_statement )* (EXCEPTION)? END
+    ;
+
+plsql_statement
+    :
+    (
+        null_value
+    ) SEMICOLON
     ;
 
 // Begin: common things
@@ -249,6 +257,10 @@ boolean_literal
 numeric_literal
     : (MINUS DECIMAL_NUMBER)
     | DECIMAL_NUMBER
+    ;
+
+comment
+    : SINGLE_LINE_COMMENT | MULTI_LINE_COMMENT
     ;
 
 // End: common things
