@@ -12,5 +12,8 @@ declare
     my_var c_rec;
     my_var c_rec%rowtype;
     my_var another_var%type;
+    my_var my_table.my_column%type;
+    my_var my_schema.my_table.my_column%type;
+    my_var my_package.my_type;
 begin
 end;
