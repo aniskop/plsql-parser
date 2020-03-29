@@ -37,18 +37,21 @@ To test the grammar execute `mvn test` or `mvn clean test`.
 # Known issues
 
 **Comments**
-Multi-line comments `/*  */` cannot start everywhere &ndash; only from the beginning of the line.
+Comments can be only outside statements and expressions. This makes parser rules and eventually parser easier. 
 ```sql
+-- Valid comment.
 declare
-    /* This is
-    valid multi-line
+    /* Valid multi-line
     comment. */
 
     /* This is also valid.*/
+    -- This is valid.
+    my_const constant number := 10; -- Valid comment
 
-    my_var /* This will cause parsing to fail */ varchar2(100);
+    my_var /* This will cause parser to fail */ varchar2(100);
 begin
     -- Valid comment
     /* Also valid. */
 end;
 ```
+Making the parser find comment everywhere will slow it down while bringing almost no value.
