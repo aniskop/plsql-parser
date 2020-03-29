@@ -9,6 +9,7 @@ To test the grammar execute `mvn test` or `mvn clean test`.
 * [Literals](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/plsql-language-fundamentals.html#GUID-A5970DA8-78B4-460B-971D-C957A80B3B08)
     * Numeric
     * Character (e.g. string)
+    * Boolean
 * [PL/SQL block](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/overview.html#GUID-826B070B-4888-4398-889B-61A3C6B91349)
 * Declarations
     * [Variable](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/scalar-variable-declaration.html#GUID-03124315-0E1E-4154-8EBE-12034CA6AD55)
