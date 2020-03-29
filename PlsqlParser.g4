@@ -14,6 +14,17 @@ label
     : LABEL_BEGIN name LABEL_END
     ;
 
+//TODO: pragmas (each pragma has its specific locations inthe PL/SQL code):
+//TODO: autonomous transaction
+//TODO: coverage
+//TODO: deprecate
+//TODO: exception init
+//TODO: inline
+//TODO: restrict references
+//TODO: serially reusable
+//TODO: suppress warning 6009
+//TODO: udf
+
 declare_section
 //TODO: cursor declaration
 //TODO: cursor definition
@@ -175,9 +186,35 @@ body
     : BEGIN ( comment | plsql_statement )* (EXCEPTION)? END
     ;
 
+//TODO: assignment
+//TODO: basic_loop
+//TODO: case_statement
+//TODO: close
+//TODO: collection_method_call
+//TODO: continue
+//TODO: cursor for loop
+//TODO: execute immediate
+//TODO: exit
+//TODO: fetch
+//TODO: for loop
+//TODO: forall
+//TODO: goto
+//TODO: if
+//TODO: null
+//TODO: open
+//TODO: open for
+//TODO: pipe_row
+//TODO: plsql block
+//TODO: procedure call
+//TODO: raise
+//TODO: return
+//TODO: select into
+//TODO: sql statement
+//TODO: while loop
 plsql_statement
     :
     (
+        //TODO: change to null_statement
         null_value
     ) SEMICOLON
     ;
@@ -215,6 +252,16 @@ default_value
     : (ASSIGNMENT | DEFAULT) plsql_expression
     ;
 
+// https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/expression.html#GUID-D4700B45-F2C8-443E-AEE7-2BD20FFD45B8
+//TODO: boolean
+//TODO: character
+//TODO: collection constructor
+//TODO: date
+//TODO: numeric
+//TODO: qualified
+//TODO: searched case
+//TODO: simple case
+//TODO: ( expression )
 plsql_expression
     : null_value
     | character_literal
