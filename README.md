@@ -6,10 +6,14 @@ Oracle docs used:
 To test the grammar execute `mvn test` or `mvn clean test`.
 
 # Supported syntax elements
+
 * [Literals](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/plsql-language-fundamentals.html#GUID-A5970DA8-78B4-460B-971D-C957A80B3B08)
     * Numeric
     * Character (e.g. string)
     * Boolean
+* [Comments](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/plsql-language-fundamentals.html#GUID-9DEE49B3-40B3-48A8-8F78-C98399379ACE)
+    * Single-line
+    * Multi-line (see "Known issues" for exceptions).
 * [PL/SQL block](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/overview.html#GUID-826B070B-4888-4398-889B-61A3C6B91349)
 * Declarations
     * [Variable](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/scalar-variable-declaration.html#GUID-03124315-0E1E-4154-8EBE-12034CA6AD55)
@@ -29,3 +33,22 @@ To test the grammar execute `mvn test` or `mvn clean test`.
             * Nested table
         * [Record type](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/record-variable-declaration.html#GUID-704FC014-561E-422C-9636-EDCA3B996AAD__CJAJCHJA)
         * [Ref cursor type](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/cursor-variable-declaration.html#GUID-CE884B31-07F0-46AA-8067-EBAF73821F3D__CJAIGBFF)
+
+# Known issues
+
+**Comments**
+Multi-line comments `/*  */` cannot start everywhere &ndash; only from the beginning of the line.
+```sql
+declare
+    /* This is
+    valid multi-line
+    comment. */
+
+    /* This is also valid.*/
+
+    my_var /* This will cause parsing to fail */ varchar2(100);
+begin
+    -- Valid comment
+    /* Also valid. */
+end;
+```

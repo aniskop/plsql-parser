@@ -64,6 +64,11 @@ DECIMAL_NUMBER : DIGIT+;
 // Character literal a.k.a. string
 CHAR_LITERAL : '\'' (~('\'' | '\r' | '\n' ) | '\'' '\'' | NEWLINE)* '\'';
 
+// Comments
+SINGLE_LINE_COMMENT: '--' ~('\r' | '\n')* (NEWLINE | EOF);
+MULTI_LINE_COMMENT: '/*' .*? '*/';
+
+// Primitives
 fragment LETTER: [a-zA-Z\u0080-\u00FF_];
 fragment DIGIT: [0-9];
 
