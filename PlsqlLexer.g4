@@ -56,8 +56,11 @@ IDENTIFIER: QUOTED_IDENTIFIER | REGULAR_IDENTIFIER;
 fragment QUOTED_IDENTIFIER: '"' LETTER (LETTER | '$' | '_' | '#' | ' ' | DIGIT)*? '"';
 fragment REGULAR_IDENTIFIER: LETTER (LETTER | '$' | '_' | '#' | DIGIT)*;
 
-// Numeric literal
+// Numeric literals
 DECIMAL_NUMBER : DIGIT+;
+
+// Character literal a.k.a. string
+CHAR_LITERAL : '\'' (~('\'' | '\r' | '\n' ) | '\'' '\'' | NEWLINE)* '\'';
 
 fragment LETTER: [a-zA-Z\u0080-\u00FF_];
 fragment DIGIT: [0-9];

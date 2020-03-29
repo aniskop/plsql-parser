@@ -210,7 +210,8 @@ default_value
     ;
 
 plsql_expression
-    : null_expression
+    : null_value
+    | character_literal
     | numeric_literal
     ;
 
@@ -235,8 +236,12 @@ name
     : IDENTIFIER
     ;
 
-null_expression
+null_value
     : NULL
+    ;
+
+character_literal
+    : CHAR_LITERAL
     ;
 
 numeric_literal
