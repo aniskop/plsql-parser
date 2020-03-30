@@ -7,7 +7,7 @@ script
     ;
 
 plsql_block
-    : label? declare_section? body SEMICOLON
+    : label? declare_section? body
     ;
 
 label
@@ -183,7 +183,17 @@ invoker_rights_clause
     ;
 
 body
-    : BEGIN ( comment | plsql_statement )* (EXCEPTION)? END
+    : BEGIN ( comment | plsql_statement )* ( EXCEPTION exception_handler+ )? END SEMICOLON
+    ;
+
+exception_handler
+    : WHEN exception_name (OR exception_name)* THEN plsql_statement+
+    ;
+
+// OTHERS falls under this rule.
+// It OTHERS will be introduces as a lexer rule, this will fail.
+exception_name
+    : IDENTIFIER
     ;
 
 //TODO: assignment
@@ -215,8 +225,12 @@ plsql_statement
     :
     (
         //TODO: change to null_statement
-        null_value
+        null_statement
     ) SEMICOLON
+    ;
+
+null_statement
+    : NULL
     ;
 
 // Begin: common things
