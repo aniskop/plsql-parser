@@ -34,6 +34,9 @@ To test the grammar execute `mvn test` or `mvn clean test`.
         * [Record type](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/record-variable-declaration.html#GUID-704FC014-561E-422C-9636-EDCA3B996AAD__CJAJCHJA)
         * [Ref cursor type](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/cursor-variable-declaration.html#GUID-CE884B31-07F0-46AA-8067-EBAF73821F3D__CJAIGBFF)
 * [Exception handler](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/exception-handler.html#GUID-3FECF29B-A240-4191-A635-92C612D00C4D)
+* Statements
+    * [Assignment](https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/assignment-statement.html#GUID-4C3BEFDF-3FFA-4E9D-96D0-4C5E13E08643)
+
 
 # Known issues
 

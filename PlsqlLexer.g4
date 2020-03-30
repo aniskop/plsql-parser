@@ -56,10 +56,11 @@ VARYING :               V A R Y I N G ;
 WHEN :                  W H E N ;
 
 // Identifiers
-IDENTIFIER: QUOTED_IDENTIFIER | REGULAR_IDENTIFIER;
+IDENTIFIER: QUOTED_IDENTIFIER | REGULAR_IDENTIFIER ;
+HOST_VARIABLE_NAME: ':' REGULAR_IDENTIFIER ;
 
 fragment QUOTED_IDENTIFIER: '"' LETTER (LETTER | '$' | '_' | '#' | ' ' | DIGIT)*? '"';
-fragment REGULAR_IDENTIFIER: LETTER (LETTER | '$' | '_' | '#' | DIGIT)*;
+fragment REGULAR_IDENTIFIER: LETTER (LETTER | '$' | '_' | '#' | DIGIT )*;
 
 // Numeric literals
 DECIMAL_NUMBER : DIGIT+;

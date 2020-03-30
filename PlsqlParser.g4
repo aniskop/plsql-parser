@@ -223,10 +223,29 @@ exception_name
 //TODO: while loop
 plsql_statement
     :
+    label*
     (
-        //TODO: change to null_statement
-        null_statement
+        assignment_statement
+        | null_statement
     ) SEMICOLON
+    ;
+
+// https://docs.oracle.com/en/database/oracle/oracle-database/20/lnpls/assignment-statement.html#GUID-4C3BEFDF-3FFA-4E9D-96D0-4C5E13E08643
+// Ending semicolon is in plsql_statement rule.
+assignment_statement
+    : assignment_statement_target ASSIGNMENT plsql_expression
+    ;
+
+assignment_statement_target
+// For now do not represent each variable type as separate parser rules
+    : HOST_VARIABLE_NAME
+    // Object attribute or record field
+    | IDENTIFIER DOT IDENTIFIER (DOT IDENTIFIER)*
+    // Simplistic array element with index
+    //TODO: index as expression
+    | IDENTIFIER ( (L_PAREN IDENTIFIER | DECIMAL_NUMBER) R_PAREN )+
+    | IDENTIFIER
+    //TODO: placeholder ":name :indicator"
     ;
 
 null_statement
@@ -297,6 +316,10 @@ plsql_datatype
 
 schema
     : IDENTIFIER
+    ;
+
+host_variable_name
+    : HOST_VARIABLE_NAME
     ;
 
 name
